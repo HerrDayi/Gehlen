@@ -346,56 +346,8 @@ document.addEventListener('DOMContentLoaded', () => {
         relToSelect.addEventListener('change', updateRelationFinder);
     }
 
-    // Concept Cards Interactive Click: wählt den Begriff im Finder aus
-    conceptCards.forEach(card => {
-        card.addEventListener('click', () => {
-            const conceptId = card.getAttribute('data-concept');
-            conceptCards.forEach(c => c.classList.remove('selected'));
-            card.classList.add('selected');
-
-            if (relFromSelect) {
-                relFromSelect.value = conceptId;
-                updateRelationFinder();
-            }
-
-            // Scroll gently to finder if on small screen
-            const finderBox = document.querySelector('.relation-finder-box');
-            if (window.innerWidth < 768 && finderBox) {
-                finderBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }
-        });
-    });
-
-    // =========================================================================
-    // 5. TOGGLES: MUSTER-SCHAUBILD & WOLFSKINDER-LÖSUNG
-    // =========================================================================
-    const btnToggleDiagram = document.getElementById('btn-toggle-diagram');
-    const boxMusterSchaubild = document.getElementById('box-muster-schaubild');
-
-    if (btnToggleDiagram && boxMusterSchaubild) {
-        btnToggleDiagram.addEventListener('click', () => {
-            const isHidden = boxMusterSchaubild.classList.contains('hidden');
-            boxMusterSchaubild.classList.toggle('hidden', !isHidden);
-            btnToggleDiagram.classList.toggle('active', isHidden);
-            btnToggleDiagram.textContent = isHidden 
-                ? '✕ Muster-Schaubild ausblenden' 
-                : '💡 Ein mögliches Muster-Schaubild anzeigen (zur Selbstkontrolle)';
-        });
-    }
-
-    const btnToggleWolf = document.getElementById('btn-toggle-wolf-solution');
-    const boxWolfSolution = document.getElementById('box-wolf-solution');
-
-    if (btnToggleWolf && boxWolfSolution) {
-        btnToggleWolf.addEventListener('click', () => {
-            const isHidden = boxWolfSolution.classList.contains('hidden');
-            boxWolfSolution.classList.toggle('hidden', !isHidden);
-            btnToggleWolf.classList.toggle('active', isHidden);
-            btnToggleWolf.textContent = isHidden 
-                ? '✕ Schnelldenker-Musterlösung ausblenden' 
-                : '🔍 Schnelldenker-Musterlösung für die Präsentation einblenden';
-        });
-    }
+    // Initiale Beziehungsanzeige beim Laden ausführen
+    updateRelationFinder();
 
     // =========================================================================
     // 5b. STECKBRIEF-MODAL (ARNOLD GEHLEN)
