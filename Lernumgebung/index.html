@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arnold Gehlen: Das Mängelwesen und seine Kultur (1940 / 1942) – Interaktive Texterschließung</title>
+    <!-- Google Fonts: Carlito (metrisch kompatibel mit Calibri, LRS-freundlich) & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="light-mode">
+    <div class="app-container">
+        <!-- Top App Header -->
+        <header class="app-header">
+            <div class="header-left">
+                <span class="badge">Philosophie Q1</span>
+                <span class="instructor">Herr Dayi</span>
+                <span class="topic-tag">Philosophische Anthropologie</span>
+            </div>
+            <div class="header-center">
+                <h1 class="header-title">Arnold Gehlen – Das Mängelwesen und seine Kultur (1940 / 1942)</h1>
+            </div>
+            <div class="header-right">
+                <div class="control-group">
+                    <button id="btn-text-decrease" class="icon-btn" title="Schriftgröße verkleinern" aria-label="Schrift verkleinern">A-</button>
+                    <button id="btn-text-increase" class="icon-btn" title="Schriftgröße vergrößern" aria-label="Schrift vergrößern">A+</button>
+                </div>
+                <div class="divider"></div>
+                <button id="btn-theme-toggle" class="theme-toggle-btn" title="Farbschema wechseln" aria-label="Farbschema wechseln">
+                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    <span id="theme-text">Dunkelmodus</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Top Navigation: Exakt 2 Tabs auf Wunsch des Nutzers -->
+        <nav class="top-chapter-nav" aria-label="Navigation">
+            <button class="chap-tab-btn active" data-chap-tab="text">
+                <span class="step-num">Tab 1</span>
+                <span class="step-label">📖 Text & Worterläuterungen</span>
+            </button>
+            <button class="chap-tab-btn" data-chap-tab="aufgabe2">
+                <span class="step-num">Tab 2</span>
+                <span class="step-label">🔗 Hilfe zu Aufgabe 2 (Kausalkette & Entlastung)</span>
+            </button>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="app-content-full">
+
+            <!-- Sticky Glossar Card (In beiden Tabs immer aktiv und griffbereit) -->
+            <div class="card vocab-card-horizontal" id="vocab-card">
+                <div class="card-header">
+                    <div class="card-header-left">
+                        <svg class="card-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                        </svg>
+                        <h2>Worterklärungen & Philosophische Leitbegriffe</h2>
+                    </div>
+                    <span class="vocab-hint-badge">Klick auf blau markierte Wörter</span>
+                </div>
+                <div class="card-body">
+                    <div id="vocab-placeholder" class="placeholder-box">
+                        Klicke auf einen <span class="vocab-inline-example">blau markierten Begriff</span> im Text, um die Begriffserklärung & den philosophischen Kontext einzublenden.
+                    </div>
+                    <div id="vocab-content" class="vocab-display hidden animate-fade-in">
+                        <div class="vocab-header-row">
+                            <h3 id="vocab-title" class="vocab-title">Begriff</h3>
+                            <span id="vocab-type" class="vocab-type">Kategorie</span>
+                        </div>
+                        <p id="vocab-definition" class="vocab-definition">Erklärung...</p>
+                        <div class="vocab-context-box">
+                            <strong>Gehlens Kontext & philosophische Einordnung:</strong>
+                            <p id="vocab-context">Kontext...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- =============================================================== -->
+            <!-- TAB 1: TEXT & WORTERLÄUTERUNGEN                                 -->
+            <!-- =============================================================== -->
+            <div class="chap-panel active" id="chap-panel-text">
+
+                <!-- Hinweiskasten zur Texterschließung -->
+                <div class="step-guide-card">
+                    <div class="guide-header">
+                        <span class="guide-badge">Arbeitsauftrag 1 (GA)</span>
+                        <h2>Textauszug: Das Mängelwesen und seine Kultur</h2>
+                    </div>
+                    <p class="guide-desc">
+                        Lest den Text abschnittsweise in eurer Dreiergruppe (Methode: <em>Reziprokes Lesen</em>). Nutzt die blauen Worterläuterungen, um sprachliche Hürden und biologisch-philosophische Fachbegriffe zu klären. Arbeitet für jeden Abschnitt heraus, <strong>was</strong> Gehlen über den Menschen behauptet und <strong>wie</strong> er diese Behauptung begründet.
+                    </p>
+                </div>
+
+                <!-- Volltext Gehlen mit Zeilennummern (Originalfassung 1940 / 1942) -->
+                <article class="philosophical-text full-width-text" id="philosophical-text-gehlen">
+                    
+                    <!-- Abschnitt I -->
+                    <div class="text-section-block" id="gehlen-sec-1">
+                        <div class="section-badge-label">Abschnitt I (Z. 1–16)</div>
+                        <h3 class="section-inline-title">I. Die morphologische Mängeldiagnose: Der Mensch als Naturwesen</h3>
+                        <div class="paragraph">
+                            <div class="line" data-line="1">„<span class="vocab solution-visible" data-word="morphologisch">Morphologisch</span> ist nämlich der Mensch im Gegensatz zu allen höheren Säugern hauptsächlich</div>
+                            <div class="line" data-line="2">durch Mängel bestimmt, die jeweils im exakt biologischen Sinne als Unangepasstheiten,</div>
+                            <div class="line" data-line="3"><span class="vocab solution-visible" data-word="organische Unspezialisiertheit / biologische Mittellosigkeit">Unspezialisiertheiten</span>, als <span class="vocab solution-visible" data-word="primitivisieren / Primitivismen">Primitivismen</span>, das heißt als Unentwickeltes zu bezeichnen sind […].</div>
+                            <div class="line" data-line="4">Es fehlt das Haarkleid und damit der natürliche <span class="vocab solution-visible" data-word="Witterungsschutz">Witterungsschutz</span>; es fehlen natürliche</div>
+                            <div class="line" data-line="5">Angriffsorgane, aber auch eine zur Flucht geeignete Körperbildung; der Mensch wird von den</div>
+                            <div class="line" data-line="6">meisten Tieren an Schärfe der Sinne übertroffen, er hat einen geradezu lebensgefährlichen</div>
+                            <div class="line" data-line="7">Mangel an echten <span class="vocab solution-visible" data-word="Instinktarmut">Instinkten</span> und er unterliegt während der ganzen Säuglings- und Kinderzeit</div>
+                            <div class="line" data-line="8">einer ganz unvergleichlich langfristigen Schutzbedürftigkeit. […] Der Mensch dagegen hat,</div>
+                            <div class="line" data-line="9">morphologisch gesehen, so gut wie keine Spezialisierungen. Er besteht aus einer Reihe von</div>
+                            <div class="line" data-line="10">Unspezialisiertheiten, die unter entwicklungsbiologischem Gesichtspunkt als <span class="vocab solution-visible" data-word="primitivisieren / Primitivismen">Primitivismen</span></div>
+                            <div class="line" data-line="11">erscheinen […]. Er ist von einer einzigartigen […] <span class="vocab solution-visible" data-word="organische Unspezialisiertheit / biologische Mittellosigkeit">biologischen Mittellosigkeit</span> […]. Die</div>
+                            <div class="line" data-line="12"><span class="vocab solution-visible" data-word="spezifische Umwelt vs. Weltoffenheit">‚Weltoffenheit‘</span>, die untierische Ausgesetztheit gegenüber einer organisch gar nicht</div>
+                            <div class="line" data-line="13">angepassten Überflutung mit Wahrnehmungseindrücken, welche zuerst eine Belastung ist,</div>
+                            <div class="line" data-line="14">stellt auch die Bedingungen dafür dar, menschlich leben zu können […]. Der Mensch ist also</div>
+                            <div class="line" data-line="15">organisch <span class="vocab solution-visible" data-word="Mängelwesen">‚Mängelwesen‘</span> (<span class="vocab solution-visible" data-word="Johann Gottfried Herder („Mängelwesen“)">Herder</span>), er wäre in jeder natürlichen Umwelt lebensunfähig […].“</div>
+                        </div>
+                    </div>
+
+                    <div class="text-divider-ornament">✦ ✦ ✦</div>
+
+                    <!-- Abschnitt II -->
+                    <div class="text-section-block" id="gehlen-sec-2">
+                        <div class="section-badge-label">Abschnitt II (Z. 16–28)</div>
+                        <h3 class="section-inline-title">II. Die Kompensation: Handeln und Kultur als „zweite Natur“</h3>
+                        <div class="paragraph">
+                            <div class="line" data-line="16">„[…] und er <span class="vocab solution-visible" data-word="vergüten">vergütet</span> diesen Mangel allein durch seine Arbeitsfähigkeit der Handlungsgabe,</div>
+                            <div class="line" data-line="17">das heißt durch Hände und Intelligenz; eben deshalb ist er aufgerichtet, ‚umsichtig‘, mit</div>
+                            <div class="line" data-line="18">freigelegten Händen […]. Er ist <span class="vocab solution-visible" data-word="Handeln">handelndes Wesen</span>, weil er unspezialisiert ist, und also der</div>
+                            <div class="line" data-line="19">natürlich angepassten Umwelt entbehrt: Der <span class="vocab solution-visible" data-word="Inbegriff">Inbegriff</span> der von ihm ins Lebensdienliche</div>
+                            <div class="line" data-line="20">umgearbeiteten Natur heißt <span class="vocab solution-visible" data-word="„Zweite Natur“ (Kultur)">Kultur</span> […]. Es gibt für ihn keine Existenzmöglichkeit in der</div>
+                            <div class="line" data-line="21">unveränderten, nicht <span class="vocab solution-visible" data-word="„Entgiftete Natur“">‚entgifteten‘ Natur</span>, und es gibt keinen ‚Naturmenschen‘ im strengen Sinne:</div>
+                            <div class="line" data-line="22">das heißt keine menschliche Gesellschaft ohne Waffen, ohne Feuer, ohne Obdach und ohne</div>
+                            <div class="line" data-line="23">Formen der hergestellten Kooperation. […] [S]o muss er sich eine <span class="vocab solution-visible" data-word="„Zweite Natur“ (Kultur)">zweite Natur</span>, eine künstlich</div>
+                            <div class="line" data-line="24">bearbeitete und passend gemachte Ersatzwelt, die seiner versagenden organischen</div>
+                            <div class="line" data-line="25">Ausstattung entgegenkommt, erst schaffen […]. Man kann auch sagen, dass er biologisch</div>
+                            <div class="line" data-line="26">zur Naturbeherrschung gezwungen ist.“</div>
+                        </div>
+                    </div>
+
+                    <div class="text-divider-ornament">✦ ✦ ✦</div>
+
+                    <!-- Abschnitt III -->
+                    <div class="text-section-block" id="gehlen-sec-3">
+                        <div class="section-badge-label">Abschnitt III (Z. 27–43)</div>
+                        <h3 class="section-inline-title">III. Das Entlastungsprinzip: Die Notwendigkeit von Institutionen</h3>
+                        <div class="paragraph">
+                            <div class="line" data-line="27">„Es sind sehr langsam, über Jahrhunderte und Jahrtausende, herausexperimentierte feste</div>
+                            <div class="line" data-line="28">und stets auch einschränkende […] Formen wie das <span class="vocab solution-visible" data-word="Scharnier zu Institutionen (Recht, Eigentum, Familie)">Recht, das Eigentum, die monogame Familie</span> […],</div>
+                            <div class="line" data-line="29">welche unsere Antriebe und Gesinnungen heraufgedrückt, heraufgezüchtet haben auf die</div>
+                            <div class="line" data-line="30">hohen exklusiven und selektiven Ansprüche, welche Kultur heißen dürfen. Diese</div>
+                            <div class="line" data-line="31"><span class="vocab solution-visible" data-word="Selbstmacht (der Institutionen)">Institutionen</span> […] sind selbst in keinem Sinne natürlich und sehr schnell zerstört. […] Und</div>
+                            <div class="line" data-line="32">wenn man die Stützen wegschlägt, <span class="vocab solution-visible" data-word="primitivisieren / Primitivismen">primitivisieren</span> wir sehr schnell. […] Wenn die äußeren</div>
+                            <div class="line" data-line="33">Sicherungen und Stabilisierungen, die in den festen Traditionen liegen, entfallen […], dann</div>
+                            <div class="line" data-line="34">wird unser Verhalten <span class="vocab solution-visible" data-word="entformt">entformt</span>, affektbestimmt, triebhaft, unberechenbar, unzuverlässig. […]</div>
+                            <div class="line" data-line="35">Die Forderungen des Berufes und der Familie, des Staates […], regeln uns nicht nur in</div>
+                            <div class="line" data-line="36">unserem Verhalten, sie greifen bis in unsere Wertgefühle und Willensentschlüsse durch und</div>
+                            <div class="line" data-line="37">diese verlaufen dann ohne Bremsung und Zweifel wie von selbst […]. Vom Inneren der</div>
+                            <div class="line" data-line="38">Einzelperson her gesehen bedeutet das […] eine lebenswichtige <span class="vocab solution-visible" data-word="Entlastungsprinzip">Entlastung</span>, weil auf diesem</div>
+                            <div class="line" data-line="39">Unterbau innerer und äußerer Gewohnheiten die geistigen Energien […] frei [werden].“</div>
+                        </div>
+                    </div>
+
+                </article>
+
+                <div class="text-source mt-3">
+                    Zusammengestellt nach den Originalfassungen in: Arnold Gehlen: <em>Der Mensch. Seine Natur und seine Stellung in der Welt</em>, Berlin 1940, sowie Ders.: <em>Ein Bild vom Menschen</em> [1942], in: <em>Anthropologische Forschung</em>, Reinbek 1961, S. 46–50. Gekürzt und didaktisch eingerichtet.
+                </div>
+
+                <!-- Schnellübersicht der 4 Begriffskategorien zum direkten Nachschlagen -->
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <div class="card-header-left">
+                            <svg class="card-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                            </svg>
+                            <h2>Systematische Begriffskategorien (Übersicht)</h2>
+                        </div>
+                        <span class="vocab-hint-badge">Klickbar</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="vocab-categories-grid">
+                            
+                            <div class="vocab-cat-box">
+                                <h4>1. Sprachliche Hürden (gehobene Formen)</h4>
+                                <div class="cat-pill-list">
+                                    <button class="cat-word-pill" data-word="vergüten">vergüten</button>
+                                    <button class="cat-word-pill" data-word="primitivisieren / Primitivismen">primitivisieren / Primitivismen</button>
+                                    <button class="cat-word-pill" data-word="entformt">entformt</button>
+                                    <button class="cat-word-pill" data-word="Inbegriff">Inbegriff</button>
+                                </div>
+                            </div>
+
+                            <div class="vocab-cat-box">
+                                <h4>2. Biologisch-fachwissenschaftliche Begriffe</h4>
+                                <div class="cat-pill-list">
+                                    <button class="cat-word-pill" data-word="morphologisch">morphologisch</button>
+                                    <button class="cat-word-pill" data-word="organische Unspezialisiertheit / biologische Mittellosigkeit">organische Unspezialisiertheit</button>
+                                    <button class="cat-word-pill" data-word="Instinktarmut">Instinktarmut</button>
+                                    <button class="cat-word-pill" data-word="spezifische Umwelt vs. Weltoffenheit">spezifische Umwelt vs. Weltoffenheit</button>
+                                </div>
+                            </div>
+
+                            <div class="vocab-cat-box">
+                                <h4>3. Philosophische Kernbegriffe</h4>
+                                <div class="cat-pill-list">
+                                    <button class="cat-word-pill" data-word="Mängelwesen">Mängelwesen</button>
+                                    <button class="cat-word-pill" data-word="Handeln">Handeln</button>
+                                    <button class="cat-word-pill" data-word="„Zweite Natur“ (Kultur)">„Zweite Natur“ (Kultur)</button>
+                                    <button class="cat-word-pill" data-word="Entlastungsprinzip">Entlastungsprinzip</button>
+                                    <button class="cat-word-pill" data-word="Selbstmacht (der Institutionen)">Selbstmacht (der Institutionen)</button>
+                                </div>
+                            </div>
+
+                            <div class="vocab-cat-box">
+                                <h4>4. Hintergrundwissen & Philosophiegeschichte</h4>
+                                <div class="cat-pill-list">
+                                    <button class="cat-word-pill" data-word="Johann Gottfried Herder („Mängelwesen“)">Johann Gottfried Herder</button>
+                                    <button class="cat-word-pill" data-word="„Entgiftete Natur“">„Entgiftete Natur“</button>
+                                    <button class="cat-word-pill" data-word="Scharnier zu Institutionen (Recht, Eigentum, Familie)">Scharnier zu Institutionen (Rousseau-Bezug)</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-transition-bar mt-4">
+                    <button class="next-step-btn" data-goto-step="aufgabe2">
+                        Weiter zu Tab 2: Hilfe zu Aufgabe 2 (Kausalkette & Entlastung) &rarr;
+                    </button>
+                </div>
+            </div>
+
+            <!-- =============================================================== -->
+            <!-- TAB 2: HILFE ZU AUFGABE 2 (KAUSALKETTE & ENTLASTUNG)            -->
+            <!-- =============================================================== -->
+            <div class="chap-panel hidden" id="chap-panel-aufgabe2">
+                
+                <div class="step-guide-card">
+                    <div class="guide-header">
+                        <span class="guide-badge">Aufgabe 2 (Partnerarbeit)</span>
+                        <h2>Hilfe zur Kausalkette & zum Entlastungsprinzip</h2>
+                    </div>
+                    <p class="guide-desc">
+                        <strong>Aufgabenstellung:</strong> <em>Strukturiert Gehlens Argumentationsgang, indem ihr die fünf Schlüsselbegriffe (Mängelwesen, Weltoffenheit, Handeln, Kultur, Institutionen) in eine logische Kausalkette überführt. Erklärt anschließend in zwei bis drei Sätzen, inwiefern Institutionen für Gehlen eine „Entlastung“ des Menschen darstellen.</em>
+                    </p>
+                </div>
+
+                <!-- 1. Interaktive Kausalkette der 5 Schlüsselbegriffe -->
+                <div class="card mt-3">
+                    <div class="card-header">
+                        <div class="card-header-left">
+                            <span class="chain-badge-icon">1</span>
+                            <h2>Teil 1: Die logische Kausalkette der 5 Schlüsselbegriffe</h2>
+                        </div>
+                        <span class="vocab-hint-badge">Klicke auf die Kettenglieder</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="mb-3 text-muted">
+                            Klicke auf die einzelnen Begriffe, um die logische Begründung an den Verbindungspfeilen für euer Arbeitsblatt einzublenden:
+                        </p>
+
+                        <div class="causality-chain-container">
+                            
+                            <div class="chain-step" data-chain="1">
+                                <div class="chain-node active" data-node="1">
+                                    <span class="chain-num">1</span>
+                                    <h4 class="chain-title">Mängelwesen</h4>
+                                    <p class="chain-subtitle">Biologische Unfertigkeit</p>
+                                </div>
+                                <div class="chain-arrow">&rarr;</div>
+                            </div>
+
+                            <div class="chain-step" data-chain="2">
+                                <div class="chain-node" data-node="2">
+                                    <span class="chain-num">2</span>
+                                    <h4 class="chain-title">Weltoffenheit</h4>
+                                    <p class="chain-subtitle">Reizüberflutung & Instinktarmut</p>
+                                </div>
+                                <div class="chain-arrow">&rarr;</div>
+                            </div>
+
+                            <div class="chain-step" data-chain="3">
+                                <div class="chain-node" data-node="3">
+                                    <span class="chain-num">3</span>
+                                    <h4 class="chain-title">Handeln</h4>
+                                    <p class="chain-subtitle">Planvoller Natureingriff</p>
+                                </div>
+                                <div class="chain-arrow">&rarr;</div>
+                            </div>
+
+                            <div class="chain-step" data-chain="4">
+                                <div class="chain-node" data-node="4">
+                                    <span class="chain-num">4</span>
+                                    <h4 class="chain-title">Kultur</h4>
+                                    <p class="chain-subtitle">Künstliche „zweite Natur“</p>
+                                </div>
+                                <div class="chain-arrow">&rarr;</div>
+                            </div>
+
+                            <div class="chain-step" data-chain="5">
+                                <div class="chain-node highlight-node" data-node="5">
+                                    <span class="chain-num">5</span>
+                                    <h4 class="chain-title">Institutionen</h4>
+                                    <p class="chain-subtitle">Entlastungsprinzip & Ordnung</p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Kausalketten-Detailerklärung -->
+                        <div class="chain-explanation-card mt-3" id="chain-explanation-card">
+                            <div class="chain-expl-header">
+                                <h3 id="chain-expl-title">1. Der Ausgangspunkt: Das biologische Mängelwesen</h3>
+                                <span class="chain-expl-badge">Biologische Basis</span>
+                            </div>
+                            <p id="chain-expl-text">
+                                Der Mensch besitzt keine angeborenen Waffen (Krallen, Reißzähne), kein schützendes Fell und keine spezialisierten Sinnes- oder Fluchtorgane. Er ist von Natur aus unfertig und in reiner Wildnis nicht überlebensfähig.
+                            </p>
+                            <div class="chain-arrow-expl mt-2" id="chain-arrow-expl">
+                                <strong>Pfeil-Begründung (Warum folgt daraus Weltoffenheit?):</strong> Weil der Mensch keine festen tierischen Instinkte besitzt, ist er nicht an eine bestimmte natürliche Umweltnische angepasst, sondern prinzipiell weltoffen.
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- 2. Formulierungshilfe & Erklärung des Entlastungsprinzips -->
+                <div class="card relief-card mt-4">
+                    <div class="card-header">
+                        <div class="card-header-left">
+                            <span class="chain-badge-icon">2</span>
+                            <h2>Teil 2: Erklärung des Entlastungsprinzips (in 2 bis 3 Sätzen)</h2>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="mb-3">
+                            Nutzt diese Leitfragen und Formulierungshilfen, um eure 2–3 Sätze für das Arbeitsblatt zu verfassen:
+                        </p>
+
+                        <!-- Leitfragen & Bausteine -->
+                        <div class="relief-guide-grid">
+                            <div class="relief-guide-box">
+                                <h4>🎯 Drei Leitfragen zur Formulierung:</h4>
+                                <ol class="guide-numbered-list">
+                                    <li><strong>Wovon</strong> entlasten Institutionen den Menschen? (Entscheidungsdruck, Reizflut, Zweifel, Triebchaos)</li>
+                                    <li><strong>Wie</strong> tun sie das? (Durch feste Gewohnheiten, Recht, Familie, Staat, vorgegebene Werte)</li>
+                                    <li><strong>Wozu</strong> führt diese Entlastung? (Freisetzung geistiger Energie für Wissenschaft, Kultur und friedliches Zusammenleben)</li>
+                                </ol>
+                            </div>
+
+                            <div class="relief-guide-box">
+                                <h4>🧱 Satzbausteine für euer Arbeitsblatt:</h4>
+                                <ul class="guide-bullets">
+                                    <li><em>„Institutionen wie Recht, Eigentum und Familie entlasten den instinktarmen Menschen, indem sie...“</em></li>
+                                    <li><em>„Dadurch muss der Einzelne nicht in jeder Situation neu...“</em></li>
+                                    <li><em>„Auf diesem festen Unterbau von Gewohnheiten werden...“</em></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Visuelle Gegenüberstellung: Ohne vs. Mit Institutionen -->
+                        <div class="relief-comparison-grid mt-4">
+                            <div class="relief-col relief-negative">
+                                <h4>⚠️ Ohne Institutionen (Überlastung & Primitivismus)</h4>
+                                <ul>
+                                    <li><strong>Dauerhafte Überforderung:</strong> Jede Handlung und jeder Konflikt müsste permanent neu ausgehandelt werden.</li>
+                                    <li><strong>Entformtes Verhalten:</strong> Ohne äußere Schranken brechen rohe Triebe, Affekte und Unberechenbarkeit hervor.</li>
+                                    <li><strong>Folge:</strong> Chaos, Misstrauen, Angst und rascher Rückfall in den Primitivismus.</li>
+                                </ul>
+                            </div>
+                            <div class="relief-col relief-positive">
+                                <h4>🛡️ Durch Institutionen (Entlastung & Stabilität)</h4>
+                                <ul>
+                                    <li><strong>Handlungssicherheit:</strong> Feste Regeln und Traditionen sagen dem Menschen im Voraus, was er tun soll.</li>
+                                    <li><strong>Gewohnheiten ohne Zweifel:</strong> Entscheidungen verlaufen routiniert und wie von selbst.</li>
+                                    <li><strong>Freiheit für Höheres:</strong> Kognitive Energie wird frei für Kunst, Denken, Wissenschaft und Kultur.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Ausklappbare Musterlösung zur Selbstkontrolle -->
+                        <div class="chap-tasks-card mt-4">
+                            <button class="help-btn h-title" id="btn-toggle-solution">
+                                💡 Mustererklärung (2–3 Sätze zur Selbstkontrolle) anzeigen
+                            </button>
+                            <div class="help-box hidden mt-2" id="box-solution-sample">
+                                <strong>Musterformulierung für euer Arbeitsblatt:</strong><br>
+                                <em>„Institutionen entlasten den Menschen von der ständigen Überforderung, jede Alltagssituation und jeden Konflikt ohne verlässliche Instinkte neu entscheiden zu müssen, indem sie verbindliche Handlungsregeln und Werte vorgeben. Sie zähmen unberechenbare Triebe und verwandeln Unsicherheit in stabile, selbstverständliche Gewohnheiten. Durch diesen festen Unterbau werden geistige Energien frei, die der Mensch erst für höhere kulturelle Leistungen nutzen kann.“</em>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Infokasten mit Gehlens Porträt im Altvater-Stil -->
+                <div class="card bio-card mt-4">
+                    <div class="card-header">
+                        <div class="card-header-left">
+                            <svg class="card-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                            <h2>Zur Person: Arnold Gehlen (1904–1976)</h2>
+                        </div>
+                    </div>
+                    <div class="card-body bio-body">
+                        <img src="Gehlen.jpeg" alt="Arnold Gehlen" class="bio-img">
+                        <div class="bio-text">
+                            <h3 class="bio-name">Arnold Gehlen (1904–1976)</h3>
+                            <p>Bedeutender deutscher Philosoph und Soziologe; Hauptbegründer der modernen <strong>Philosophischen Anthropologie</strong>.</p>
+                            <p>In seinen Hauptwerken <em>„Der Mensch. Seine Natur und seine Stellung in der Welt“</em> (1940) und <em>„Urmensch und Spätkultur“</em> (1956) entwickelte er die Lehre vom Menschen als biologischem Mängelwesen, das zur tätigen Naturbeherrschung und zur Errichtung stabiler gesellschaftlicher Institutionen nach dem <strong>Entlastungsprinzip</strong> gezwungen ist.</p>
+                            <p class="text-muted"><em>Historisch-philosophische Einordnung:</em> Gehlen formuliert eine konservative Institutionenlehre im scharfen Kontrast zu Rousseaus Kulturkritik. Während Rousseau den Naturzustand verklärt und Institutionen als Ursache von Ungleichheit sieht, betrachtet Gehlen Institutionen als überlebensnotwendige Schutzmauern gegen Chaos und Verrohung.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-transition-bar mt-4">
+                    <button class="next-step-btn" data-goto-step="text">
+                        &larr; Zurück zu Tab 1: Text & Worterläuterungen
+                    </button>
+                </div>
+
+            </div>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>Philosophie Q1 &bull; Herr Dayi &bull; Unterrichtsreihe: Philosophische Anthropologie &bull; Arnold Gehlen (1940 / 1942)</p>
+        </footer>
+    </div>
+
+    <!-- Script File -->
+    <script src="script.js"></script>
+</body>
+</html>

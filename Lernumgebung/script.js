@@ -205,174 +205,68 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // =========================================================================
-    // 4. INTERAKTIVER BEZIEHUNGS- & VERBEN-FINDER (TAB 2, AUFGABE 2)
+    // 4. INTERAKTIVE KAUSALKETTE (TAB 2, AUFGABE 2)
     // =========================================================================
-    const termNames = {
-        'maengelwesen': 'Mängelwesen',
-        'weltoffenheit': 'Weltoffenheit',
-        'handeln': 'Handeln',
-        'kultur': 'Kultur',
-        'institutionen': 'Institutionen'
-    };
+    const chainNodes = document.querySelectorAll('.chain-node');
+    const chainExplTitle = document.getElementById('chain-expl-title');
+    const chainExplText = document.getElementById('chain-expl-text');
+    const chainArrowExpl = document.getElementById('chain-arrow-expl');
 
-    const relationMatrix = {
-        'maengelwesen->weltoffenheit': {
-            verb: 'bedingt / führt zu',
-            exp: 'Weil dem Menschen biologisch feste Instinkte fehlen, ist er nicht an eine geschlossene Nische („Umwelt“) angepasst, sondern prinzipiell weltoffen und schutzlos einer Reizüberflutung ausgesetzt.',
-            sentence: '„Die organische Instinktarmut des Mängelwesens führt dazu, dass der Mensch prinzipiell weltoffen und reizüberflutet ist.“'
+    const chainData = {
+        '1': {
+            title: '1. Der Ausgangspunkt: Das biologische Mängelwesen',
+            text: 'Der Mensch ist körperlich unvollkommen und unfertig: Ihm fehlen natürliche Schutzwaffen (wie Reißzähne oder Krallen), Fell gegen Witterung und schnelle Fluchtorgane. Biologisch betrachtet ist er organisch unspezialisiert und von Natur aus mittellos.',
+            arrow: '<strong>Pfeil-Begründung (Warum folgt daraus Weltoffenheit?):</strong> Weil dem Menschen angeborene tierische Instinkte fehlen, ist er nicht an eine bestimmte biologische Nische gebunden, sondern prinzipiell weltoffen.'
         },
-        'maengelwesen->handeln': {
-            verb: 'zwingt zu / wird kompensiert durch',
-            exp: 'Seine morphologische Mittellosigkeit (kein Fell, keine Waffen) lässt dem Menschen keine Wahl: Er ist biologisch zur tätigen Naturbeherrschung gezwungen, um nicht unterzugehen.',
-            sentence: '„Seine biologischen Defizite zwingen das Mängelwesen zur vorausschauenden Naturbeherrschung durch planvolles Handeln.“'
+        '2': {
+            title: '2. Die Folge: Weltoffenheit & Reizüberflutung',
+            text: 'Da der Mensch keine fest umgrenzte Umwelt besitzt, stürmen alle Außenreize ungefiltert auf ihn ein. Diese „Weltoffenheit“ bedeutet zunächst permanente existenzielle Unsicherheit, Überforderung und Handlungsdruck.',
+            arrow: '<strong>Pfeil-Begründung (Warum folgt daraus Handeln?):</strong> Würde sich der Mensch rein passiv verhalten, würde er an der Reizflut und Kälte zugrunde gehen. Seine biologische Mittellosigkeit zwingt ihn zur aktiven Tatkraft.'
         },
-        'maengelwesen->kultur': {
-            verb: 'erfordert als Ersatzwelt',
-            exp: 'In der rohen Natur kann der Mensch nicht überleben. Die Kultur bildet seine lebensnotwendige „zweite Natur“, die an die Stelle fehlender biologischer Anpassung tritt.',
-            sentence: '„Das Mängelwesen benötigt Kultur als künstliche Ersatzwelt, um seine physische Unterlegenheit auszugleichen.“'
+        '3': {
+            title: '3. Die Notwendigkeit: Der Mensch als handelndes Wesen',
+            text: 'Handeln bedeutet, die vorfindliche Natur nicht einfach hinzunehmen, sondern sie vorausschauend, planvoll und tätlich umzugestalten und sich dienstbar zu machen (durch aufrechten Gang, freie Hände und Intelligenz).',
+            arrow: '<strong>Pfeil-Begründung (Warum folgt daraus Kultur?):</strong> Die Gesamtheit der durch planvolles Handeln geschaffenen und lebensdienlich umgearbeiteten Kunstwelt nennen wir Kultur.'
         },
-        'maengelwesen->institutionen': {
-            verb: 'benötigt zur Stabilisierung',
-            exp: 'Weil der Mensch keine angeborenen Steuerungsmechanismen besitzt, droht ihm ohne übergeordnete soziale Ordnungen ständige Orientierungslosigkeit und Verrohung.',
-            sentence: '„Das instinktunsichere Mängelwesen ist auf Institutionen angewiesen, um sein Verhalten dauerhaft zu ordnen.“'
+        '4': {
+            title: '4. Die Kompensation: Kultur als lebensnotwendige „zweite Natur“',
+            text: 'Werkzeuge, Waffen, Kleidung, Behausungen, Vorräte und Sprache sind kein nebensächlicher Luxus, sondern die biologische Existenzbedingung des Mängelwesens. Sie fungieren als lebensnotwendige Prothese für fehlende Organe.',
+            arrow: '<strong>Pfeil-Begründung (Warum folgt daraus die Notwendigkeit von Institutionen?):</strong> Technische Sachkultur allein genügt nicht, um das menschliche Zusammenleben dauerhaft zu sichern. Der instinktunsichere Mensch braucht stabile soziale Ordnungsformen.'
         },
-        'weltoffenheit->handeln': {
-            verb: 'erzwingt / fordert heraus',
-            exp: 'Die ungefilterte Flut von Außenreizen überfordert den Menschen, wenn er sie nicht aktiv durch planvolles Handeln und Werkzeuge bewältigt.',
-            sentence: '„Die bedrohliche Reizüberflutung der Weltoffenheit erzwingt vorausschauendes Handeln zur Lebensbewältigung.“'
-        },
-        'weltoffenheit->kultur': {
-            verb: 'wird gebändigt durch / ermöglicht',
-            exp: 'Die Weltoffenheit erlaubt dem Menschen die Besiedelung aller Klimazonen, setzt aber voraus, dass er überall eine schützende Kulturwelt errichtet.',
-            sentence: '„Die Weltoffenheit ermöglicht und verlangt die planvolle Erschaffung einer kultivierten Überlebenswelt.“'
-        },
-        'weltoffenheit->institutionen': {
-            verb: 'wird kanalisiert durch',
-            exp: 'Da der weltoffene Mensch nicht automatisch weiß, wie er reagieren soll, kanalisieren Institutionen das Verhalten in verbindliche Gewohnheiten.',
-            sentence: '„Institutionen kanalisieren die orientierungslose Weltoffenheit in verlässliche, normierte Handlungsbahnen.“'
-        },
-        'handeln->kultur': {
-            verb: 'schafft / erzeugt',
-            exp: 'Durch Verstand und Handeinsatz arbeitet der Mensch die Natur planvoll ins Lebensdienliche um: Der Inbegriff dieser umgearbeiteten Natur heißt Kultur („zweite Natur“).',
-            sentence: '„Durch planvolles Handeln formt der Mensch die lebensfeindliche Roh-Natur um und schafft sich die Kultur als zweite Natur.“'
-        },
-        'handeln->maengelwesen': {
-            verb: 'kompensiert / gleicht aus',
-            exp: 'Mit Werkzeugen, aufrechtem Gang und Vernunft gleicht das Handeln die fehlenden Klauen, Zähne und Schutzfelle des Mängelwesens vollständig aus.',
-            sentence: '„Tätiges Handeln kompensiert die morphologische Mittellosigkeit des biologischen Mängelwesens.“'
-        },
-        'handeln->institutionen': {
-            verb: 'organisiert sich in',
-            exp: 'Menschliches Handeln kann dauerhaft nur gelingen, wenn Arbeitsteilung, Gesetze und Verträge in stabilen Institutionen geregelt werden.',
-            sentence: '„Das gemeinschaftliche Handeln des Menschen organisiert und verstetigt sich in dauerhaften Institutionen.“'
-        },
-        'kultur->institutionen': {
-            verb: 'benötigt / wird geschützt durch',
-            exp: 'Werkzeuge und Sachkultur genügen allein nicht für das soziale Zusammenleben; Kultur benötigt überindividuelle Institutionen (Recht, Ehe, Staat), um vor Verfall geschützt zu werden.',
-            sentence: '„Die materielle Kultur wird durch überindividuelle Institutionen vor Verfall und Selbstzerstörung geschützt.“'
-        },
-        'kultur->maengelwesen': {
-            verb: 'sichert Überleben von',
-            exp: 'Die künstliche Kulturwelt (Waffen, Kleidung, Hütten, Medizin) bildet die Schutzhülle, in der das organisch wehrlose Wesen Mensch existieren kann.',
-            sentence: '„Kultur fungiert als künstliche Ersatzwelt, die dem Mängelwesen das physische Überleben überhaupt erst garantiert.“'
-        },
-        'institutionen->maengelwesen': {
-            verb: 'entlasten von Entscheidungsnot',
-            exp: 'Das zentrale Entlastungsprinzip: Institutionen nehmen dem instinktarmen Menschen den Zwang ab, jede Alltagshandlung neu zu entscheiden, und zähmen rohe Triebe („wie von selbst“).',
-            sentence: '„Institutionen entlasten das Mängelwesen von permanenter Reizüberflutung, ständiger Entscheidungsnot und Triebchaos.“'
-        },
-        'institutionen->handeln': {
-            verb: 'routinieren / regeln',
-            exp: 'Institutionen verwandeln unsicheres, zögerndes Handeln in feste soziale Routinen und setzen geistige Energien für höhere Reflexion frei.',
-            sentence: '„Institutionen routinieren das menschliche Handeln und lenken es verbindlich in geordnete Bahnen.“'
-        },
-        'institutionen->kultur': {
-            verb: 'bewahren vor Verfall &amp; Chaos',
-            exp: 'Wenn Institutionen wie Recht oder Familie zerstört werden, primitivisiert der Mensch sehr schnell und die Kultur bricht zusammen.',
-            sentence: '„Institutionen bewahren die Kultur vor dem Verfall, indem sie das soziale Verhalten stabilisieren und formen.“'
+        '5': {
+            title: '5. Die Vollendung: Institutionen nach dem Entlastungsprinzip',
+            text: 'Gesellschaftliche Institutionen (Recht, Ehe, Eigentum, Staat) sind überindividuelle Dauerformen. Sie entlasten das Individuum von ständiger Entscheidungsnot, bannen den Rückfall in Triebchaos und machen geistige Energien für höhere Kultur frei.',
+            arrow: '<strong>Ergebnis der Kausalkette:</strong> Erst die institutionelle Entlastung vollendet die biologische Überlebensfähigkeit des Mängelwesens Mensch.'
         }
     };
 
-    const relFromSelect = document.getElementById('rel-from-select');
-    const relToSelect = document.getElementById('rel-to-select');
-    const relVerbBadge = document.getElementById('relVerbBadge');
-    const relPairLabel = document.getElementById('relPairLabel');
-    const relExplanation = document.getElementById('relExplanation');
-    const relSentence = document.getElementById('relSentence');
-    const conceptCards = document.querySelectorAll('.concept-card');
+    chainNodes.forEach(node => {
+        node.addEventListener('click', () => {
+            chainNodes.forEach(n => n.classList.remove('active'));
+            node.classList.add('active');
 
-    function updateRelationFinder() {
-        if (!relFromSelect || !relToSelect || !relVerbBadge) return;
-
-        const fromKey = relFromSelect.value;
-        const toKey = relToSelect.value;
-        const pairKey = `${fromKey}->${toKey}`;
-
-        const fromName = termNames[fromKey] || fromKey;
-        const toName = termNames[toKey] || toKey;
-
-        relPairLabel.textContent = `${fromName} → ${toName}`;
-
-        if (fromKey === toKey) {
-            relVerbBadge.textContent = 'identischer Begriff';
-            relExplanation.innerHTML = `Ihr habt zweimal <strong>${fromName}</strong> ausgewählt. Wählt zwei unterschiedliche Begriffe aus, um die Verknüpfung und Pfeilbeschriftung für euer Schaubild anzuzeigen.`;
-            relSentence.innerHTML = `<em>Tipp: Untersucht z.&thinsp;B., wie ${fromName} mit Handeln oder Institutionen zusammenhängt.</em>`;
-            return;
-        }
-
-        const relation = relationMatrix[pairKey];
-        if (relation) {
-            relVerbBadge.textContent = relation.verb;
-            relExplanation.innerHTML = relation.exp;
-            relSentence.innerHTML = `<em>${relation.sentence}</em>`;
-        } else {
-            // Check reverse pair for hints
-            const reverseKey = `${toKey}->${fromKey}`;
-            const reverseRelation = relationMatrix[reverseKey];
-            if (reverseRelation) {
-                relVerbBadge.textContent = `wird beeinflusst von (← ${reverseRelation.verb})`;
-                relExplanation.innerHTML = `In Gehlens Systematik verläuft der Hauptzusammenhang typischerweise umgekehrt: Von <strong>${toName}</strong> zu <strong>${fromName}</strong> (${reverseRelation.verb}).`;
-                relSentence.innerHTML = `<em>Ihr könnt auf dem Arbeitsblatt einen Pfeil von ${toName} nach ${fromName} zeichnen oder notieren: „${fromName} steht in Wechselwirkung mit ${toName}.“</em>`;
-            } else {
-                relVerbBadge.textContent = 'Wechselwirkung / Bedingungsgefüge';
-                relExplanation.innerHTML = `Zwischen <strong>${fromName}</strong> und <strong>${toName}</strong> besteht ein indirektes Verhältnis in Gehlens Gesamttheorie.`;
-                relSentence.innerHTML = `<em>„${fromName} und ${toName} bilden zusammenhängende Elemente in Gehlens anthropologischem Kulturmodell.“</em>`;
+            const nodeNum = node.getAttribute('data-node');
+            const data = chainData[nodeNum];
+            if (data && chainExplTitle && chainExplText && chainArrowExpl) {
+                chainExplTitle.textContent = data.title;
+                chainExplText.textContent = data.text;
+                chainArrowExpl.innerHTML = data.arrow;
+                document.getElementById('chain-explanation-card').classList.add('animate-fade-in');
             }
-        }
-    }
-
-    if (relFromSelect && relToSelect) {
-        relFromSelect.addEventListener('change', updateRelationFinder);
-        relToSelect.addEventListener('change', updateRelationFinder);
-    }
-
-    // Initiale Beziehungsanzeige beim Laden ausführen
-    updateRelationFinder();
+        });
+    });
 
     // =========================================================================
-    // 5b. STECKBRIEF-MODAL (ARNOLD GEHLEN)
+    // 5. MUSTERLÖSUNG ZUM ENTLASTUNGSPRINZIP (AUFGABE 2)
     // =========================================================================
-    const btnBioModal = document.getElementById('btn-bio-modal');
-    const bioModal = document.getElementById('bioModal');
-    const btnCloseBioModal = document.getElementById('btnCloseBioModal');
+    const btnToggleSolution = document.getElementById('btn-toggle-solution');
+    const boxSolutionSample = document.getElementById('box-solution-sample');
 
-    if (btnBioModal && bioModal) {
-        btnBioModal.addEventListener('click', () => {
-            bioModal.classList.remove('hidden');
-        });
-    }
-
-    if (btnCloseBioModal && bioModal) {
-        btnCloseBioModal.addEventListener('click', () => {
-            bioModal.classList.add('hidden');
-        });
-    }
-
-    if (bioModal) {
-        bioModal.addEventListener('click', (e) => {
-            if (e.target === bioModal) {
-                bioModal.classList.add('hidden');
-            }
+    if (btnToggleSolution && boxSolutionSample) {
+        btnToggleSolution.addEventListener('click', () => {
+            const isHidden = boxSolutionSample.classList.contains('hidden');
+            boxSolutionSample.classList.toggle('hidden', !isHidden);
+            btnToggleSolution.classList.toggle('active', isHidden);
         });
     }
 
